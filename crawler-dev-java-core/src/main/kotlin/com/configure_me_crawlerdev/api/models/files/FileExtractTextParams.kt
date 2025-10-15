@@ -50,14 +50,6 @@ private constructor(
     fun cleanText(): Optional<Boolean> = body.cleanText()
 
     /**
-     * Whether to remove boilerplate text
-     *
-     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun stripBoilerplate(): Optional<Boolean> = body.stripBoilerplate()
-
-    /**
      * Returns the raw multipart value of [file].
      *
      * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
@@ -70,14 +62,6 @@ private constructor(
      * Unlike [cleanText], this method doesn't throw if the multipart field has an unexpected type.
      */
     fun _cleanText(): MultipartField<Boolean> = body._cleanText()
-
-    /**
-     * Returns the raw multipart value of [stripBoilerplate].
-     *
-     * Unlike [stripBoilerplate], this method doesn't throw if the multipart field has an unexpected
-     * type.
-     */
-    fun _stripBoilerplate(): MultipartField<Boolean> = body._stripBoilerplate()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -123,7 +107,6 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [file]
          * - [cleanText]
-         * - [stripBoilerplate]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -156,22 +139,6 @@ private constructor(
          * value.
          */
         fun cleanText(cleanText: MultipartField<Boolean>) = apply { body.cleanText(cleanText) }
-
-        /** Whether to remove boilerplate text */
-        fun stripBoilerplate(stripBoilerplate: Boolean) = apply {
-            body.stripBoilerplate(stripBoilerplate)
-        }
-
-        /**
-         * Sets [Builder.stripBoilerplate] to an arbitrary multipart value.
-         *
-         * You should usually call [Builder.stripBoilerplate] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun stripBoilerplate(stripBoilerplate: MultipartField<Boolean>) = apply {
-            body.stripBoilerplate(stripBoilerplate)
-        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -311,11 +278,8 @@ private constructor(
     }
 
     fun _body(): Map<String, MultipartField<*>> =
-        (mapOf(
-                "file" to _file(),
-                "clean_text" to _cleanText(),
-                "strip_boilerplate" to _stripBoilerplate(),
-            ) + _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
+        (mapOf("file" to _file(), "clean_text" to _cleanText()) +
+                _additionalBodyProperties().mapValues { (_, value) -> MultipartField.of(value) })
             .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
@@ -326,7 +290,6 @@ private constructor(
     private constructor(
         private val file: MultipartField<InputStream>,
         private val cleanText: MultipartField<Boolean>,
-        private val stripBoilerplate: MultipartField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -347,15 +310,6 @@ private constructor(
         fun cleanText(): Optional<Boolean> = cleanText.value.getOptional("clean_text")
 
         /**
-         * Whether to remove boilerplate text
-         *
-         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun stripBoilerplate(): Optional<Boolean> =
-            stripBoilerplate.value.getOptional("strip_boilerplate")
-
-        /**
          * Returns the raw multipart value of [file].
          *
          * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
@@ -371,16 +325,6 @@ private constructor(
         @JsonProperty("clean_text")
         @ExcludeMissing
         fun _cleanText(): MultipartField<Boolean> = cleanText
-
-        /**
-         * Returns the raw multipart value of [stripBoilerplate].
-         *
-         * Unlike [stripBoilerplate], this method doesn't throw if the multipart field has an
-         * unexpected type.
-         */
-        @JsonProperty("strip_boilerplate")
-        @ExcludeMissing
-        fun _stripBoilerplate(): MultipartField<Boolean> = stripBoilerplate
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -412,14 +356,12 @@ private constructor(
 
             private var file: MultipartField<InputStream>? = null
             private var cleanText: MultipartField<Boolean> = MultipartField.of(null)
-            private var stripBoilerplate: MultipartField<Boolean> = MultipartField.of(null)
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 file = body.file
                 cleanText = body.cleanText
-                stripBoilerplate = body.stripBoilerplate
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -459,21 +401,6 @@ private constructor(
              */
             fun cleanText(cleanText: MultipartField<Boolean>) = apply { this.cleanText = cleanText }
 
-            /** Whether to remove boilerplate text */
-            fun stripBoilerplate(stripBoilerplate: Boolean) =
-                stripBoilerplate(MultipartField.of(stripBoilerplate))
-
-            /**
-             * Sets [Builder.stripBoilerplate] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.stripBoilerplate] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun stripBoilerplate(stripBoilerplate: MultipartField<Boolean>) = apply {
-                this.stripBoilerplate = stripBoilerplate
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -506,12 +433,7 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(
-                    checkRequired("file", file),
-                    cleanText,
-                    stripBoilerplate,
-                    additionalProperties.toMutableMap(),
-                )
+                Body(checkRequired("file", file), cleanText, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -523,7 +445,6 @@ private constructor(
 
             file()
             cleanText()
-            stripBoilerplate()
             validated = true
         }
 
@@ -543,18 +464,15 @@ private constructor(
             return other is Body &&
                 file == other.file &&
                 cleanText == other.cleanText &&
-                stripBoilerplate == other.stripBoilerplate &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy {
-            Objects.hash(file, cleanText, stripBoilerplate, additionalProperties)
-        }
+        private val hashCode: Int by lazy { Objects.hash(file, cleanText, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{file=$file, cleanText=$cleanText, stripBoilerplate=$stripBoilerplate, additionalProperties=$additionalProperties}"
+            "Body{file=$file, cleanText=$cleanText, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

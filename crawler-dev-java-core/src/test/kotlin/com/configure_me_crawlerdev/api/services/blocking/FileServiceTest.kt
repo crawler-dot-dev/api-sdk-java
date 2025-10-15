@@ -27,7 +27,6 @@ internal class FileServiceTest {
                 FileExtractTextParams.builder()
                     .file("some content".byteInputStream())
                     .cleanText(true)
-                    .stripBoilerplate(true)
                     .build()
             )
 

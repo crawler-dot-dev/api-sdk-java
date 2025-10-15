@@ -2,6 +2,7 @@
 
 package com.configure_me_crawlerdev.api.models.urls
 
+import com.configure_me_crawlerdev.api.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,8 +13,20 @@ internal class UrlExtractTextParamsTest {
         UrlExtractTextParams.builder()
             .url("url")
             .cleanText(true)
-            .renderJs(true)
-            .stripBoilerplate(true)
+            .headers(
+                UrlExtractTextParams.Headers.builder()
+                    .putAdditionalProperty("User-Agent", JsonValue.from("Custom Bot/1.0"))
+                    .putAdditionalProperty("X-API-Key", JsonValue.from("my-api-key"))
+                    .putAdditionalProperty("Accept-Language", JsonValue.from("en-US"))
+                    .build()
+            )
+            .proxy(
+                UrlExtractTextParams.Proxy.builder()
+                    .password("password")
+                    .server("server")
+                    .username("username")
+                    .build()
+            )
             .build()
     }
 
@@ -23,16 +36,42 @@ internal class UrlExtractTextParamsTest {
             UrlExtractTextParams.builder()
                 .url("url")
                 .cleanText(true)
-                .renderJs(true)
-                .stripBoilerplate(true)
+                .headers(
+                    UrlExtractTextParams.Headers.builder()
+                        .putAdditionalProperty("User-Agent", JsonValue.from("Custom Bot/1.0"))
+                        .putAdditionalProperty("X-API-Key", JsonValue.from("my-api-key"))
+                        .putAdditionalProperty("Accept-Language", JsonValue.from("en-US"))
+                        .build()
+                )
+                .proxy(
+                    UrlExtractTextParams.Proxy.builder()
+                        .password("password")
+                        .server("server")
+                        .username("username")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
         assertThat(body.url()).isEqualTo("url")
         assertThat(body.cleanText()).contains(true)
-        assertThat(body.renderJs()).contains(true)
-        assertThat(body.stripBoilerplate()).contains(true)
+        assertThat(body.headers())
+            .contains(
+                UrlExtractTextParams.Headers.builder()
+                    .putAdditionalProperty("User-Agent", JsonValue.from("Custom Bot/1.0"))
+                    .putAdditionalProperty("X-API-Key", JsonValue.from("my-api-key"))
+                    .putAdditionalProperty("Accept-Language", JsonValue.from("en-US"))
+                    .build()
+            )
+        assertThat(body.proxy())
+            .contains(
+                UrlExtractTextParams.Proxy.builder()
+                    .password("password")
+                    .server("server")
+                    .username("username")
+                    .build()
+            )
     }
 
     @Test

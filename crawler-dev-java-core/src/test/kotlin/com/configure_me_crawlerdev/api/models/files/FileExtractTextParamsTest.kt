@@ -14,7 +14,6 @@ internal class FileExtractTextParamsTest {
         FileExtractTextParams.builder()
             .file("some content".byteInputStream())
             .cleanText(true)
-            .stripBoilerplate(true)
             .build()
     }
 
@@ -24,7 +23,6 @@ internal class FileExtractTextParamsTest {
             FileExtractTextParams.builder()
                 .file("some content".byteInputStream())
                 .cleanText(true)
-                .stripBoilerplate(true)
                 .build()
 
         val body = params._body()
@@ -41,7 +39,6 @@ internal class FileExtractTextParamsTest {
                 mapOf(
                         "file" to MultipartField.of("some content".byteInputStream()),
                         "clean_text" to MultipartField.of(true),
-                        "strip_boilerplate" to MultipartField.of(true),
                     )
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }

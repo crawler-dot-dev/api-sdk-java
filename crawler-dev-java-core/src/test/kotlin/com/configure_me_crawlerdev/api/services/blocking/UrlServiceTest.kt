@@ -4,6 +4,7 @@ package com.configure_me_crawlerdev.api.services.blocking
 
 import com.configure_me_crawlerdev.api.TestServerExtension
 import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient
+import com.configure_me_crawlerdev.api.core.JsonValue
 import com.configure_me_crawlerdev.api.models.urls.UrlExtractTextParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -27,8 +28,20 @@ internal class UrlServiceTest {
                 UrlExtractTextParams.builder()
                     .url("url")
                     .cleanText(true)
-                    .renderJs(true)
-                    .stripBoilerplate(true)
+                    .headers(
+                        UrlExtractTextParams.Headers.builder()
+                            .putAdditionalProperty("User-Agent", JsonValue.from("Custom Bot/1.0"))
+                            .putAdditionalProperty("X-API-Key", JsonValue.from("my-api-key"))
+                            .putAdditionalProperty("Accept-Language", JsonValue.from("en-US"))
+                            .build()
+                    )
+                    .proxy(
+                        UrlExtractTextParams.Proxy.builder()
+                            .password("password")
+                            .server("server")
+                            .username("username")
+                            .build()
+                    )
                     .build()
             )
 

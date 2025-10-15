@@ -23,7 +23,6 @@ private constructor(
     private val finalUrl: JsonField<String>,
     private val sizeBytes: JsonField<Long>,
     private val statusCode: JsonField<Long>,
-    private val success: JsonField<Boolean>,
     private val textLength: JsonField<Long>,
     private val url: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -40,7 +39,6 @@ private constructor(
         @JsonProperty("finalUrl") @ExcludeMissing finalUrl: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sizeBytes") @ExcludeMissing sizeBytes: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("statusCode") @ExcludeMissing statusCode: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("success") @ExcludeMissing success: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("textLength") @ExcludeMissing textLength: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
     ) : this(
@@ -49,7 +47,6 @@ private constructor(
         finalUrl,
         sizeBytes,
         statusCode,
-        success,
         textLength,
         url,
         mutableMapOf(),
@@ -84,12 +81,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun statusCode(): Optional<Long> = statusCode.getOptional("statusCode")
-
-    /**
-     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun success(): Optional<Boolean> = success.getOptional("success")
 
     /**
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -141,13 +132,6 @@ private constructor(
     @JsonProperty("statusCode") @ExcludeMissing fun _statusCode(): JsonField<Long> = statusCode
 
     /**
-     * Returns the raw JSON value of [success].
-     *
-     * Unlike [success], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("success") @ExcludeMissing fun _success(): JsonField<Boolean> = success
-
-    /**
      * Returns the raw JSON value of [textLength].
      *
      * Unlike [textLength], this method doesn't throw if the JSON field has an unexpected type.
@@ -187,7 +171,6 @@ private constructor(
         private var finalUrl: JsonField<String> = JsonMissing.of()
         private var sizeBytes: JsonField<Long> = JsonMissing.of()
         private var statusCode: JsonField<Long> = JsonMissing.of()
-        private var success: JsonField<Boolean> = JsonMissing.of()
         private var textLength: JsonField<Long> = JsonMissing.of()
         private var url: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -199,7 +182,6 @@ private constructor(
             finalUrl = urlExtractTextResponse.finalUrl
             sizeBytes = urlExtractTextResponse.sizeBytes
             statusCode = urlExtractTextResponse.statusCode
-            success = urlExtractTextResponse.success
             textLength = urlExtractTextResponse.textLength
             url = urlExtractTextResponse.url
             additionalProperties = urlExtractTextResponse.additionalProperties.toMutableMap()
@@ -259,16 +241,6 @@ private constructor(
          */
         fun statusCode(statusCode: JsonField<Long>) = apply { this.statusCode = statusCode }
 
-        fun success(success: Boolean) = success(JsonField.of(success))
-
-        /**
-         * Sets [Builder.success] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.success] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun success(success: JsonField<Boolean>) = apply { this.success = success }
-
         fun textLength(textLength: Long) = textLength(JsonField.of(textLength))
 
         /**
@@ -320,7 +292,6 @@ private constructor(
                 finalUrl,
                 sizeBytes,
                 statusCode,
-                success,
                 textLength,
                 url,
                 additionalProperties.toMutableMap(),
@@ -339,7 +310,6 @@ private constructor(
         finalUrl()
         sizeBytes()
         statusCode()
-        success()
         textLength()
         url()
         validated = true
@@ -365,7 +335,6 @@ private constructor(
             (if (finalUrl.asKnown().isPresent) 1 else 0) +
             (if (sizeBytes.asKnown().isPresent) 1 else 0) +
             (if (statusCode.asKnown().isPresent) 1 else 0) +
-            (if (success.asKnown().isPresent) 1 else 0) +
             (if (textLength.asKnown().isPresent) 1 else 0) +
             (if (url.asKnown().isPresent) 1 else 0)
 
@@ -380,7 +349,6 @@ private constructor(
             finalUrl == other.finalUrl &&
             sizeBytes == other.sizeBytes &&
             statusCode == other.statusCode &&
-            success == other.success &&
             textLength == other.textLength &&
             url == other.url &&
             additionalProperties == other.additionalProperties
@@ -393,7 +361,6 @@ private constructor(
             finalUrl,
             sizeBytes,
             statusCode,
-            success,
             textLength,
             url,
             additionalProperties,
@@ -403,5 +370,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "UrlExtractTextResponse{contentType=$contentType, extractedText=$extractedText, finalUrl=$finalUrl, sizeBytes=$sizeBytes, statusCode=$statusCode, success=$success, textLength=$textLength, url=$url, additionalProperties=$additionalProperties}"
+        "UrlExtractTextResponse{contentType=$contentType, extractedText=$extractedText, finalUrl=$finalUrl, sizeBytes=$sizeBytes, statusCode=$statusCode, textLength=$textLength, url=$url, additionalProperties=$additionalProperties}"
 }
