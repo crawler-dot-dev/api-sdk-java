@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_crawlerdev.api/crawler-dev-java)](https://central.sonatype.com/artifact/com.configure_me_crawlerdev.api/crawler-dev-java/0.0.2)
-[![javadoc](https://javadoc.io/badge2/com.configure_me_crawlerdev.api/crawler-dev-java/0.0.2/javadoc.svg)](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.0.2)
+[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_crawlerdev.api/crawler-dev-java)](https://central.sonatype.com/artifact/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0)
+[![javadoc](https://javadoc.io/badge2/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0/javadoc.svg)](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.0.2).
+Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_c
 ### Gradle
 
 ```kotlin
-implementation("com.CONFIGURE_ME_crawlerdev.api:crawler-dev-java:0.0.2")
+implementation("com.CONFIGURE_ME_crawlerdev.api:crawler-dev-java:0.1.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.CONFIGURE_ME_crawlerdev.api:crawler-dev-java:0.0.2")
 <dependency>
   <groupId>com.CONFIGURE_ME_crawlerdev.api</groupId>
   <artifactId>crawler-dev-java</artifactId>
-  <version>0.0.2</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 
@@ -486,6 +486,21 @@ FileExtractTextParams params = FileExtractTextParams.builder()
 ```
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
+
+To set undocumented parameters on _nested_ headers, query params, or body classes, call the `putAdditionalProperty` method on the nested class:
+
+```java
+import com.configure_me_crawlerdev.api.core.JsonValue;
+import com.configure_me_crawlerdev.api.models.urls.UrlExtractTextParams;
+
+UrlExtractTextParams params = UrlExtractTextParams.builder()
+    .proxy(UrlExtractTextParams.Proxy.builder()
+        .putAdditionalProperty("secretProperty", JsonValue.from("42"))
+        .build())
+    .build();
+```
+
+These properties can be accessed on the nested built object later using the `_additionalProperties()` method.
 
 To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/Values.kt) object to its setter:
 

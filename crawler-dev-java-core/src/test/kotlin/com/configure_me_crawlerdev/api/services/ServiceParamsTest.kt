@@ -46,7 +46,6 @@ internal class ServiceParamsTest {
             FileExtractTextParams.builder()
                 .file("some content".byteInputStream())
                 .cleanText(true)
-                .stripBoilerplate(true)
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")
                 .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))

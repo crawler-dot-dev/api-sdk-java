@@ -60,7 +60,6 @@ internal class ProGuardCompatibilityTest {
                 .extractedText("This is the extracted text from your document...")
                 .filename("document.pdf")
                 .sizeBytes(1024L)
-                .success(true)
                 .textLength(1247L)
                 .build()
 

@@ -18,7 +18,6 @@ internal class UrlExtractTextResponseTest {
                 .finalUrl("https://example.com/article")
                 .sizeBytes(2048L)
                 .statusCode(200L)
-                .success(true)
                 .textLength(892L)
                 .url("https://example.com/article")
                 .build()
@@ -29,7 +28,6 @@ internal class UrlExtractTextResponseTest {
         assertThat(urlExtractTextResponse.finalUrl()).contains("https://example.com/article")
         assertThat(urlExtractTextResponse.sizeBytes()).contains(2048L)
         assertThat(urlExtractTextResponse.statusCode()).contains(200L)
-        assertThat(urlExtractTextResponse.success()).contains(true)
         assertThat(urlExtractTextResponse.textLength()).contains(892L)
         assertThat(urlExtractTextResponse.url()).contains("https://example.com/article")
     }
@@ -44,7 +42,6 @@ internal class UrlExtractTextResponseTest {
                 .finalUrl("https://example.com/article")
                 .sizeBytes(2048L)
                 .statusCode(200L)
-                .success(true)
                 .textLength(892L)
                 .url("https://example.com/article")
                 .build()

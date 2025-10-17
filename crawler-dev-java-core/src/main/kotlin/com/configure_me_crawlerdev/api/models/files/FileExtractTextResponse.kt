@@ -22,7 +22,6 @@ private constructor(
     private val extractedText: JsonField<String>,
     private val filename: JsonField<String>,
     private val sizeBytes: JsonField<Long>,
-    private val success: JsonField<Boolean>,
     private val textLength: JsonField<Long>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -37,9 +36,8 @@ private constructor(
         extractedText: JsonField<String> = JsonMissing.of(),
         @JsonProperty("filename") @ExcludeMissing filename: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sizeBytes") @ExcludeMissing sizeBytes: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("success") @ExcludeMissing success: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("textLength") @ExcludeMissing textLength: JsonField<Long> = JsonMissing.of(),
-    ) : this(contentType, extractedText, filename, sizeBytes, success, textLength, mutableMapOf())
+    ) : this(contentType, extractedText, filename, sizeBytes, textLength, mutableMapOf())
 
     /**
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -64,12 +62,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun sizeBytes(): Optional<Long> = sizeBytes.getOptional("sizeBytes")
-
-    /**
-     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun success(): Optional<Boolean> = success.getOptional("success")
 
     /**
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -108,13 +100,6 @@ private constructor(
     @JsonProperty("sizeBytes") @ExcludeMissing fun _sizeBytes(): JsonField<Long> = sizeBytes
 
     /**
-     * Returns the raw JSON value of [success].
-     *
-     * Unlike [success], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("success") @ExcludeMissing fun _success(): JsonField<Boolean> = success
-
-    /**
      * Returns the raw JSON value of [textLength].
      *
      * Unlike [textLength], this method doesn't throw if the JSON field has an unexpected type.
@@ -146,7 +131,6 @@ private constructor(
         private var extractedText: JsonField<String> = JsonMissing.of()
         private var filename: JsonField<String> = JsonMissing.of()
         private var sizeBytes: JsonField<Long> = JsonMissing.of()
-        private var success: JsonField<Boolean> = JsonMissing.of()
         private var textLength: JsonField<Long> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -156,7 +140,6 @@ private constructor(
             extractedText = fileExtractTextResponse.extractedText
             filename = fileExtractTextResponse.filename
             sizeBytes = fileExtractTextResponse.sizeBytes
-            success = fileExtractTextResponse.success
             textLength = fileExtractTextResponse.textLength
             additionalProperties = fileExtractTextResponse.additionalProperties.toMutableMap()
         }
@@ -205,16 +188,6 @@ private constructor(
          */
         fun sizeBytes(sizeBytes: JsonField<Long>) = apply { this.sizeBytes = sizeBytes }
 
-        fun success(success: Boolean) = success(JsonField.of(success))
-
-        /**
-         * Sets [Builder.success] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.success] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun success(success: JsonField<Boolean>) = apply { this.success = success }
-
         fun textLength(textLength: Long) = textLength(JsonField.of(textLength))
 
         /**
@@ -255,7 +228,6 @@ private constructor(
                 extractedText,
                 filename,
                 sizeBytes,
-                success,
                 textLength,
                 additionalProperties.toMutableMap(),
             )
@@ -272,7 +244,6 @@ private constructor(
         extractedText()
         filename()
         sizeBytes()
-        success()
         textLength()
         validated = true
     }
@@ -296,7 +267,6 @@ private constructor(
             (if (extractedText.asKnown().isPresent) 1 else 0) +
             (if (filename.asKnown().isPresent) 1 else 0) +
             (if (sizeBytes.asKnown().isPresent) 1 else 0) +
-            (if (success.asKnown().isPresent) 1 else 0) +
             (if (textLength.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -309,7 +279,6 @@ private constructor(
             extractedText == other.extractedText &&
             filename == other.filename &&
             sizeBytes == other.sizeBytes &&
-            success == other.success &&
             textLength == other.textLength &&
             additionalProperties == other.additionalProperties
     }
@@ -320,7 +289,6 @@ private constructor(
             extractedText,
             filename,
             sizeBytes,
-            success,
             textLength,
             additionalProperties,
         )
@@ -329,5 +297,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FileExtractTextResponse{contentType=$contentType, extractedText=$extractedText, filename=$filename, sizeBytes=$sizeBytes, success=$success, textLength=$textLength, additionalProperties=$additionalProperties}"
+        "FileExtractTextResponse{contentType=$contentType, extractedText=$extractedText, filename=$filename, sizeBytes=$sizeBytes, textLength=$textLength, additionalProperties=$additionalProperties}"
 }

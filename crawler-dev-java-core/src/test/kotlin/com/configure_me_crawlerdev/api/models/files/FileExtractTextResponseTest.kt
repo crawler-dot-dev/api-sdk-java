@@ -17,7 +17,6 @@ internal class FileExtractTextResponseTest {
                 .extractedText("This is the extracted text from your document...")
                 .filename("document.pdf")
                 .sizeBytes(1024L)
-                .success(true)
                 .textLength(1247L)
                 .build()
 
@@ -26,7 +25,6 @@ internal class FileExtractTextResponseTest {
             .contains("This is the extracted text from your document...")
         assertThat(fileExtractTextResponse.filename()).contains("document.pdf")
         assertThat(fileExtractTextResponse.sizeBytes()).contains(1024L)
-        assertThat(fileExtractTextResponse.success()).contains(true)
         assertThat(fileExtractTextResponse.textLength()).contains(1247L)
     }
 
@@ -39,7 +37,6 @@ internal class FileExtractTextResponseTest {
                 .extractedText("This is the extracted text from your document...")
                 .filename("document.pdf")
                 .sizeBytes(1024L)
-                .success(true)
                 .textLength(1247L)
                 .build()
 

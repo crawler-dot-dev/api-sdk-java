@@ -10,6 +10,7 @@ import com.configure_me_crawlerdev.api.core.Params
 import com.configure_me_crawlerdev.api.core.checkRequired
 import com.configure_me_crawlerdev.api.core.http.Headers
 import com.configure_me_crawlerdev.api.core.http.QueryParams
+import com.configure_me_crawlerdev.api.core.toImmutable
 import com.configure_me_crawlerdev.api.errors.CrawlerDevInvalidDataException
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Extract text content from a webpage or document accessible via URL. Supports HTML, PDF, and other
@@ -47,21 +49,20 @@ private constructor(
     fun cleanText(): Optional<Boolean> = body.cleanText()
 
     /**
-     * Whether to render JavaScript for HTML content. This parameter is ignored for binary content
-     * types (PDF, DOC, etc.) since they are not HTML.
+     * Custom HTTP headers to send with the request (case-insensitive)
      *
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun renderJs(): Optional<Boolean> = body.renderJs()
+    fun headers(): Optional<Headers> = body.headers()
 
     /**
-     * Whether to remove boilerplate text
+     * Proxy configuration for the request
      *
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun stripBoilerplate(): Optional<Boolean> = body.stripBoilerplate()
+    fun proxy(): Optional<Proxy> = body.proxy()
 
     /**
      * Returns the raw JSON value of [url].
@@ -78,19 +79,18 @@ private constructor(
     fun _cleanText(): JsonField<Boolean> = body._cleanText()
 
     /**
-     * Returns the raw JSON value of [renderJs].
+     * Returns the raw JSON value of [headers].
      *
-     * Unlike [renderJs], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [headers], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _renderJs(): JsonField<Boolean> = body._renderJs()
+    fun _headers_(): JsonField<Headers> = body._headers_()
 
     /**
-     * Returns the raw JSON value of [stripBoilerplate].
+     * Returns the raw JSON value of [proxy].
      *
-     * Unlike [stripBoilerplate], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [proxy], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _stripBoilerplate(): JsonField<Boolean> = body._stripBoilerplate()
+    fun _proxy(): JsonField<Proxy> = body._proxy()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -136,8 +136,8 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [url]
          * - [cleanText]
-         * - [renderJs]
-         * - [stripBoilerplate]
+         * - [headers]
+         * - [proxy]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -164,36 +164,27 @@ private constructor(
          */
         fun cleanText(cleanText: JsonField<Boolean>) = apply { body.cleanText(cleanText) }
 
-        /**
-         * Whether to render JavaScript for HTML content. This parameter is ignored for binary
-         * content types (PDF, DOC, etc.) since they are not HTML.
-         */
-        fun renderJs(renderJs: Boolean) = apply { body.renderJs(renderJs) }
+        /** Custom HTTP headers to send with the request (case-insensitive) */
+        fun headers(headers: Headers) = apply { body.headers(headers) }
 
         /**
-         * Sets [Builder.renderJs] to an arbitrary JSON value.
+         * Sets [Builder.headers] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.renderJs] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.headers] with a well-typed [Headers] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun renderJs(renderJs: JsonField<Boolean>) = apply { body.renderJs(renderJs) }
+        fun headers(headers: JsonField<Headers>) = apply { body.headers(headers) }
 
-        /** Whether to remove boilerplate text */
-        fun stripBoilerplate(stripBoilerplate: Boolean) = apply {
-            body.stripBoilerplate(stripBoilerplate)
-        }
+        /** Proxy configuration for the request */
+        fun proxy(proxy: Proxy) = apply { body.proxy(proxy) }
 
         /**
-         * Sets [Builder.stripBoilerplate] to an arbitrary JSON value.
+         * Sets [Builder.proxy] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.stripBoilerplate] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.proxy] with a well-typed [Proxy] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun stripBoilerplate(stripBoilerplate: JsonField<Boolean>) = apply {
-            body.stripBoilerplate(stripBoilerplate)
-        }
+        fun proxy(proxy: JsonField<Proxy>) = apply { body.proxy(proxy) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -343,8 +334,8 @@ private constructor(
     private constructor(
         private val url: JsonField<String>,
         private val cleanText: JsonField<Boolean>,
-        private val renderJs: JsonField<Boolean>,
-        private val stripBoilerplate: JsonField<Boolean>,
+        private val headers: JsonField<Headers>,
+        private val proxy: JsonField<Proxy>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -354,13 +345,9 @@ private constructor(
             @JsonProperty("clean_text")
             @ExcludeMissing
             cleanText: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("render_js")
-            @ExcludeMissing
-            renderJs: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("strip_boilerplate")
-            @ExcludeMissing
-            stripBoilerplate: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(url, cleanText, renderJs, stripBoilerplate, mutableMapOf())
+            @JsonProperty("headers") @ExcludeMissing headers: JsonField<Headers> = JsonMissing.of(),
+            @JsonProperty("proxy") @ExcludeMissing proxy: JsonField<Proxy> = JsonMissing.of(),
+        ) : this(url, cleanText, headers, proxy, mutableMapOf())
 
         /**
          * The URL to extract text from.
@@ -379,22 +366,20 @@ private constructor(
         fun cleanText(): Optional<Boolean> = cleanText.getOptional("clean_text")
 
         /**
-         * Whether to render JavaScript for HTML content. This parameter is ignored for binary
-         * content types (PDF, DOC, etc.) since they are not HTML.
+         * Custom HTTP headers to send with the request (case-insensitive)
          *
          * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun renderJs(): Optional<Boolean> = renderJs.getOptional("render_js")
+        fun headers(): Optional<Headers> = headers.getOptional("headers")
 
         /**
-         * Whether to remove boilerplate text
+         * Proxy configuration for the request
          *
          * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun stripBoilerplate(): Optional<Boolean> =
-            stripBoilerplate.getOptional("strip_boilerplate")
+        fun proxy(): Optional<Proxy> = proxy.getOptional("proxy")
 
         /**
          * Returns the raw JSON value of [url].
@@ -411,21 +396,18 @@ private constructor(
         @JsonProperty("clean_text") @ExcludeMissing fun _cleanText(): JsonField<Boolean> = cleanText
 
         /**
-         * Returns the raw JSON value of [renderJs].
+         * Returns the raw JSON value of [headers].
          *
-         * Unlike [renderJs], this method doesn't throw if the JSON field has an unexpected type.
+         * Unlike [headers], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("render_js") @ExcludeMissing fun _renderJs(): JsonField<Boolean> = renderJs
+        @JsonProperty("headers") @ExcludeMissing fun _headers_(): JsonField<Headers> = headers
 
         /**
-         * Returns the raw JSON value of [stripBoilerplate].
+         * Returns the raw JSON value of [proxy].
          *
-         * Unlike [stripBoilerplate], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [proxy], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("strip_boilerplate")
-        @ExcludeMissing
-        fun _stripBoilerplate(): JsonField<Boolean> = stripBoilerplate
+        @JsonProperty("proxy") @ExcludeMissing fun _proxy(): JsonField<Proxy> = proxy
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -457,16 +439,16 @@ private constructor(
 
             private var url: JsonField<String>? = null
             private var cleanText: JsonField<Boolean> = JsonMissing.of()
-            private var renderJs: JsonField<Boolean> = JsonMissing.of()
-            private var stripBoilerplate: JsonField<Boolean> = JsonMissing.of()
+            private var headers: JsonField<Headers> = JsonMissing.of()
+            private var proxy: JsonField<Proxy> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 url = body.url
                 cleanText = body.cleanText
-                renderJs = body.renderJs
-                stripBoilerplate = body.stripBoilerplate
+                headers = body.headers
+                proxy = body.proxy
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -494,35 +476,29 @@ private constructor(
              */
             fun cleanText(cleanText: JsonField<Boolean>) = apply { this.cleanText = cleanText }
 
-            /**
-             * Whether to render JavaScript for HTML content. This parameter is ignored for binary
-             * content types (PDF, DOC, etc.) since they are not HTML.
-             */
-            fun renderJs(renderJs: Boolean) = renderJs(JsonField.of(renderJs))
+            /** Custom HTTP headers to send with the request (case-insensitive) */
+            fun headers(headers: Headers) = headers(JsonField.of(headers))
 
             /**
-             * Sets [Builder.renderJs] to an arbitrary JSON value.
+             * Sets [Builder.headers] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.renderJs] with a well-typed [Boolean] value instead.
+             * You should usually call [Builder.headers] with a well-typed [Headers] value instead.
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun renderJs(renderJs: JsonField<Boolean>) = apply { this.renderJs = renderJs }
+            fun headers(headers: JsonField<Headers>) = apply { this.headers = headers }
 
-            /** Whether to remove boilerplate text */
-            fun stripBoilerplate(stripBoilerplate: Boolean) =
-                stripBoilerplate(JsonField.of(stripBoilerplate))
+            /** Proxy configuration for the request */
+            fun proxy(proxy: Proxy) = proxy(JsonField.of(proxy))
 
             /**
-             * Sets [Builder.stripBoilerplate] to an arbitrary JSON value.
+             * Sets [Builder.proxy] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.stripBoilerplate] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.proxy] with a well-typed [Proxy] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun stripBoilerplate(stripBoilerplate: JsonField<Boolean>) = apply {
-                this.stripBoilerplate = stripBoilerplate
-            }
+            fun proxy(proxy: JsonField<Proxy>) = apply { this.proxy = proxy }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -559,8 +535,8 @@ private constructor(
                 Body(
                     checkRequired("url", url),
                     cleanText,
-                    renderJs,
-                    stripBoilerplate,
+                    headers,
+                    proxy,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -574,8 +550,8 @@ private constructor(
 
             url()
             cleanText()
-            renderJs()
-            stripBoilerplate()
+            headers().ifPresent { it.validate() }
+            proxy().ifPresent { it.validate() }
             validated = true
         }
 
@@ -597,8 +573,8 @@ private constructor(
         internal fun validity(): Int =
             (if (url.asKnown().isPresent) 1 else 0) +
                 (if (cleanText.asKnown().isPresent) 1 else 0) +
-                (if (renderJs.asKnown().isPresent) 1 else 0) +
-                (if (stripBoilerplate.asKnown().isPresent) 1 else 0)
+                (headers.asKnown().getOrNull()?.validity() ?: 0) +
+                (proxy.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -608,19 +584,339 @@ private constructor(
             return other is Body &&
                 url == other.url &&
                 cleanText == other.cleanText &&
-                renderJs == other.renderJs &&
-                stripBoilerplate == other.stripBoilerplate &&
+                headers == other.headers &&
+                proxy == other.proxy &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(url, cleanText, renderJs, stripBoilerplate, additionalProperties)
+            Objects.hash(url, cleanText, headers, proxy, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{url=$url, cleanText=$cleanText, renderJs=$renderJs, stripBoilerplate=$stripBoilerplate, additionalProperties=$additionalProperties}"
+            "Body{url=$url, cleanText=$cleanText, headers=$headers, proxy=$proxy, additionalProperties=$additionalProperties}"
+    }
+
+    /** Custom HTTP headers to send with the request (case-insensitive) */
+    class Headers
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Headers]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Headers]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(headers: Headers) = apply {
+                additionalProperties = headers.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Headers].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Headers = Headers(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Headers = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: CrawlerDevInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Headers && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Headers{additionalProperties=$additionalProperties}"
+    }
+
+    /** Proxy configuration for the request */
+    class Proxy
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val password: JsonField<String>,
+        private val server: JsonField<String>,
+        private val username: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("password")
+            @ExcludeMissing
+            password: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("server") @ExcludeMissing server: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("username") @ExcludeMissing username: JsonField<String> = JsonMissing.of(),
+        ) : this(password, server, username, mutableMapOf())
+
+        /**
+         * Proxy password for authentication
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun password(): Optional<String> = password.getOptional("password")
+
+        /**
+         * Proxy server URL (e.g., http://proxy.example.com:8080 or socks5://proxy.example.com:1080)
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun server(): Optional<String> = server.getOptional("server")
+
+        /**
+         * Proxy username for authentication
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun username(): Optional<String> = username.getOptional("username")
+
+        /**
+         * Returns the raw JSON value of [password].
+         *
+         * Unlike [password], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("password") @ExcludeMissing fun _password(): JsonField<String> = password
+
+        /**
+         * Returns the raw JSON value of [server].
+         *
+         * Unlike [server], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("server") @ExcludeMissing fun _server(): JsonField<String> = server
+
+        /**
+         * Returns the raw JSON value of [username].
+         *
+         * Unlike [username], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("username") @ExcludeMissing fun _username(): JsonField<String> = username
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Proxy]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Proxy]. */
+        class Builder internal constructor() {
+
+            private var password: JsonField<String> = JsonMissing.of()
+            private var server: JsonField<String> = JsonMissing.of()
+            private var username: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(proxy: Proxy) = apply {
+                password = proxy.password
+                server = proxy.server
+                username = proxy.username
+                additionalProperties = proxy.additionalProperties.toMutableMap()
+            }
+
+            /** Proxy password for authentication */
+            fun password(password: String) = password(JsonField.of(password))
+
+            /**
+             * Sets [Builder.password] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.password] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun password(password: JsonField<String>) = apply { this.password = password }
+
+            /**
+             * Proxy server URL (e.g., http://proxy.example.com:8080 or
+             * socks5://proxy.example.com:1080)
+             */
+            fun server(server: String) = server(JsonField.of(server))
+
+            /**
+             * Sets [Builder.server] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.server] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun server(server: JsonField<String>) = apply { this.server = server }
+
+            /** Proxy username for authentication */
+            fun username(username: String) = username(JsonField.of(username))
+
+            /**
+             * Sets [Builder.username] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.username] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun username(username: JsonField<String>) = apply { this.username = username }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Proxy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Proxy =
+                Proxy(password, server, username, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Proxy = apply {
+            if (validated) {
+                return@apply
+            }
+
+            password()
+            server()
+            username()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: CrawlerDevInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (password.asKnown().isPresent) 1 else 0) +
+                (if (server.asKnown().isPresent) 1 else 0) +
+                (if (username.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Proxy &&
+                password == other.password &&
+                server == other.server &&
+                username == other.username &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(password, server, username, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Proxy{password=$password, server=$server, username=$username, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
