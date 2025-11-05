@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2025-11-05)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/crawler-dot-dev/api-sdk-java/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** api update ([41d6021](https://github.com/crawler-dot-dev/api-sdk-java/commit/41d602106b221ae97a1aa563647683881e4e8100))
+* **api:** api update ([fd4da2f](https://github.com/crawler-dot-dev/api-sdk-java/commit/fd4da2f597411a2ce86a60bee1b0dff65ed85f78))
+
 ## 0.1.0 (2025-10-15)
 
 Full Changelog: [v0.0.2...v0.1.0](https://github.com/crawler-dot-dev/api-sdk-java/compare/v0.0.2...v0.1.0)
