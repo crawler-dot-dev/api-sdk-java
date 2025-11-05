@@ -31,7 +31,7 @@ internal class UrlExtractTextParamsTest {
                     .username("username")
                     .build()
             )
-            .stealthMode(false)
+            .stealthMode(true)
             .build()
     }
 
@@ -59,7 +59,7 @@ internal class UrlExtractTextParamsTest {
                         .username("username")
                         .build()
                 )
-                .stealthMode(false)
+                .stealthMode(true)
                 .build()
 
         val body = params._body()
@@ -86,7 +86,7 @@ internal class UrlExtractTextParamsTest {
                     .username("username")
                     .build()
             )
-        assertThat(body.stealthMode()).contains(false)
+        assertThat(body.stealthMode()).contains(true)
     }
 
     @Test

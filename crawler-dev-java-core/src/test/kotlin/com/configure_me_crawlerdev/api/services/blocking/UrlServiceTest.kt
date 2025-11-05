@@ -46,7 +46,7 @@ internal class UrlServiceTest {
                             .username("username")
                             .build()
                     )
-                    .stealthMode(false)
+                    .stealthMode(true)
                     .build()
             )
 

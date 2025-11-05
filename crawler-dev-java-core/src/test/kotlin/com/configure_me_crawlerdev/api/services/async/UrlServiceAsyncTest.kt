@@ -46,7 +46,7 @@ internal class UrlServiceAsyncTest {
                             .username("username")
                             .build()
                     )
-                    .stealthMode(false)
+                    .stealthMode(true)
                     .build()
             )
 
