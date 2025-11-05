@@ -27,6 +27,7 @@ internal class UrlServiceTest {
             urlService.extractText(
                 UrlExtractTextParams.builder()
                     .url("url")
+                    .cacheAge(86400000L)
                     .cleanText(true)
                     .headers(
                         UrlExtractTextParams.Headers.builder()
@@ -35,6 +36,9 @@ internal class UrlServiceTest {
                             .putAdditionalProperty("Accept-Language", JsonValue.from("en-US"))
                             .build()
                     )
+                    .maxRedirects(5L)
+                    .maxSize(10485760L)
+                    .maxTimeout(15000L)
                     .proxy(
                         UrlExtractTextParams.Proxy.builder()
                             .password("password")
@@ -42,6 +46,7 @@ internal class UrlServiceTest {
                             .username("username")
                             .build()
                     )
+                    .stealthMode(false)
                     .build()
             )
 

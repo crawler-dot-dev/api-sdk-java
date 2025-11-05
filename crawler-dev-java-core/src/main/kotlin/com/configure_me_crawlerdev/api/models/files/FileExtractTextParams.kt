@@ -42,7 +42,13 @@ private constructor(
     fun file(): InputStream = body.file()
 
     /**
-     * Whether to clean the extracted text
+     * Whether to clean and normalize the extracted text. When enabled (true):
+     * - For HTML content: Removes script, style, and other non-text elements before extraction
+     * - Normalizes whitespace (collapses multiple spaces/tabs, normalizes newlines)
+     * - Removes empty lines and trims leading/trailing whitespace
+     * - Normalizes Unicode characters (NFC)
+     * - For JSON content: Only minimal cleaning to preserve structure When disabled (false):
+     *   Returns raw extracted text without any processing.
      *
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -128,7 +134,15 @@ private constructor(
         /** The file to upload. */
         fun file(path: Path) = apply { body.file(path) }
 
-        /** Whether to clean the extracted text */
+        /**
+         * Whether to clean and normalize the extracted text. When enabled (true):
+         * - For HTML content: Removes script, style, and other non-text elements before extraction
+         * - Normalizes whitespace (collapses multiple spaces/tabs, normalizes newlines)
+         * - Removes empty lines and trims leading/trailing whitespace
+         * - Normalizes Unicode characters (NFC)
+         * - For JSON content: Only minimal cleaning to preserve structure When disabled (false):
+         *   Returns raw extracted text without any processing.
+         */
         fun cleanText(cleanText: Boolean) = apply { body.cleanText(cleanText) }
 
         /**
@@ -302,7 +316,13 @@ private constructor(
         fun file(): InputStream = file.value.getRequired("file")
 
         /**
-         * Whether to clean the extracted text
+         * Whether to clean and normalize the extracted text. When enabled (true):
+         * - For HTML content: Removes script, style, and other non-text elements before extraction
+         * - Normalizes whitespace (collapses multiple spaces/tabs, normalizes newlines)
+         * - Removes empty lines and trims leading/trailing whitespace
+         * - Normalizes Unicode characters (NFC)
+         * - For JSON content: Only minimal cleaning to preserve structure When disabled (false):
+         *   Returns raw extracted text without any processing.
          *
          * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -389,7 +409,16 @@ private constructor(
                         .build()
                 )
 
-            /** Whether to clean the extracted text */
+            /**
+             * Whether to clean and normalize the extracted text. When enabled (true):
+             * - For HTML content: Removes script, style, and other non-text elements before
+             *   extraction
+             * - Normalizes whitespace (collapses multiple spaces/tabs, normalizes newlines)
+             * - Removes empty lines and trims leading/trailing whitespace
+             * - Normalizes Unicode characters (NFC)
+             * - For JSON content: Only minimal cleaning to preserve structure When disabled
+             *   (false): Returns raw extracted text without any processing.
+             */
             fun cleanText(cleanText: Boolean) = cleanText(MultipartField.of(cleanText))
 
             /**

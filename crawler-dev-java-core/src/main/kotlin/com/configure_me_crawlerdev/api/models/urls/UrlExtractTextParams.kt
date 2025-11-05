@@ -41,6 +41,15 @@ private constructor(
     fun url(): String = body.url()
 
     /**
+     * Maximum cache time in milliseconds for the webpage. Must be between 0 (no caching) and
+     * 259200000 (3 days). Defaults to 172800000 (2 days) if not specified.
+     *
+     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun cacheAge(): Optional<Long> = body.cacheAge()
+
+    /**
      * Whether to clean extracted text
      *
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -57,6 +66,33 @@ private constructor(
     fun headers(): Optional<Headers> = body.headers()
 
     /**
+     * Maximum number of redirects to follow when fetching the URL. Must be between 0 (no redirects)
+     * and 20. Defaults to 5 if not specified.
+     *
+     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxRedirects(): Optional<Long> = body.maxRedirects()
+
+    /**
+     * Maximum content length in bytes for the URL response. Must be between 1024 (1KB) and 52428800
+     * (50MB). Defaults to 10485760 (10MB) if not specified.
+     *
+     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxSize(): Optional<Long> = body.maxSize()
+
+    /**
+     * Maximum time in milliseconds before the crawler gives up on loading a URL. Must be between
+     * 1000 (1 second) and 30000 (30 seconds). Defaults to 10000 (10 seconds) if not specified.
+     *
+     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun maxTimeout(): Optional<Long> = body.maxTimeout()
+
+    /**
      * Proxy configuration for the request
      *
      * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -65,11 +101,28 @@ private constructor(
     fun proxy(): Optional<Proxy> = body.proxy()
 
     /**
+     * When enabled, we use a proxy for the request. If set to true, and the 'proxy' option is set,
+     * it will be ignored. Defaults to false if not specified. Note: Enabling stealth_mode consumes
+     * an additional credit/quota point (2 credits total instead of 1) for this request.
+     *
+     * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun stealthMode(): Optional<Boolean> = body.stealthMode()
+
+    /**
      * Returns the raw JSON value of [url].
      *
      * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _url(): JsonField<String> = body._url()
+
+    /**
+     * Returns the raw JSON value of [cacheAge].
+     *
+     * Unlike [cacheAge], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _cacheAge(): JsonField<Long> = body._cacheAge()
 
     /**
      * Returns the raw JSON value of [cleanText].
@@ -86,11 +139,39 @@ private constructor(
     fun _headers_(): JsonField<Headers> = body._headers_()
 
     /**
+     * Returns the raw JSON value of [maxRedirects].
+     *
+     * Unlike [maxRedirects], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _maxRedirects(): JsonField<Long> = body._maxRedirects()
+
+    /**
+     * Returns the raw JSON value of [maxSize].
+     *
+     * Unlike [maxSize], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _maxSize(): JsonField<Long> = body._maxSize()
+
+    /**
+     * Returns the raw JSON value of [maxTimeout].
+     *
+     * Unlike [maxTimeout], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _maxTimeout(): JsonField<Long> = body._maxTimeout()
+
+    /**
      * Returns the raw JSON value of [proxy].
      *
      * Unlike [proxy], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _proxy(): JsonField<Proxy> = body._proxy()
+
+    /**
+     * Returns the raw JSON value of [stealthMode].
+     *
+     * Unlike [stealthMode], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _stealthMode(): JsonField<Boolean> = body._stealthMode()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -135,9 +216,11 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [url]
+         * - [cacheAge]
          * - [cleanText]
          * - [headers]
-         * - [proxy]
+         * - [maxRedirects]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -151,6 +234,20 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun url(url: JsonField<String>) = apply { body.url(url) }
+
+        /**
+         * Maximum cache time in milliseconds for the webpage. Must be between 0 (no caching) and
+         * 259200000 (3 days). Defaults to 172800000 (2 days) if not specified.
+         */
+        fun cacheAge(cacheAge: Long) = apply { body.cacheAge(cacheAge) }
+
+        /**
+         * Sets [Builder.cacheAge] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cacheAge] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun cacheAge(cacheAge: JsonField<Long>) = apply { body.cacheAge(cacheAge) }
 
         /** Whether to clean extracted text */
         fun cleanText(cleanText: Boolean) = apply { body.cleanText(cleanText) }
@@ -175,6 +272,50 @@ private constructor(
          */
         fun headers(headers: JsonField<Headers>) = apply { body.headers(headers) }
 
+        /**
+         * Maximum number of redirects to follow when fetching the URL. Must be between 0 (no
+         * redirects) and 20. Defaults to 5 if not specified.
+         */
+        fun maxRedirects(maxRedirects: Long) = apply { body.maxRedirects(maxRedirects) }
+
+        /**
+         * Sets [Builder.maxRedirects] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxRedirects] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun maxRedirects(maxRedirects: JsonField<Long>) = apply { body.maxRedirects(maxRedirects) }
+
+        /**
+         * Maximum content length in bytes for the URL response. Must be between 1024 (1KB) and
+         * 52428800 (50MB). Defaults to 10485760 (10MB) if not specified.
+         */
+        fun maxSize(maxSize: Long) = apply { body.maxSize(maxSize) }
+
+        /**
+         * Sets [Builder.maxSize] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxSize] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun maxSize(maxSize: JsonField<Long>) = apply { body.maxSize(maxSize) }
+
+        /**
+         * Maximum time in milliseconds before the crawler gives up on loading a URL. Must be
+         * between 1000 (1 second) and 30000 (30 seconds). Defaults to 10000 (10 seconds) if not
+         * specified.
+         */
+        fun maxTimeout(maxTimeout: Long) = apply { body.maxTimeout(maxTimeout) }
+
+        /**
+         * Sets [Builder.maxTimeout] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.maxTimeout] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun maxTimeout(maxTimeout: JsonField<Long>) = apply { body.maxTimeout(maxTimeout) }
+
         /** Proxy configuration for the request */
         fun proxy(proxy: Proxy) = apply { body.proxy(proxy) }
 
@@ -185,6 +326,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun proxy(proxy: JsonField<Proxy>) = apply { body.proxy(proxy) }
+
+        /**
+         * When enabled, we use a proxy for the request. If set to true, and the 'proxy' option is
+         * set, it will be ignored. Defaults to false if not specified. Note: Enabling stealth_mode
+         * consumes an additional credit/quota point (2 credits total instead of 1) for this
+         * request.
+         */
+        fun stealthMode(stealthMode: Boolean) = apply { body.stealthMode(stealthMode) }
+
+        /**
+         * Sets [Builder.stealthMode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stealthMode] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun stealthMode(stealthMode: JsonField<Boolean>) = apply { body.stealthMode(stealthMode) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -333,21 +491,48 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val url: JsonField<String>,
+        private val cacheAge: JsonField<Long>,
         private val cleanText: JsonField<Boolean>,
         private val headers: JsonField<Headers>,
+        private val maxRedirects: JsonField<Long>,
+        private val maxSize: JsonField<Long>,
+        private val maxTimeout: JsonField<Long>,
         private val proxy: JsonField<Proxy>,
+        private val stealthMode: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("cache_age") @ExcludeMissing cacheAge: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("clean_text")
             @ExcludeMissing
             cleanText: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("headers") @ExcludeMissing headers: JsonField<Headers> = JsonMissing.of(),
+            @JsonProperty("max_redirects")
+            @ExcludeMissing
+            maxRedirects: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("max_size") @ExcludeMissing maxSize: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("max_timeout")
+            @ExcludeMissing
+            maxTimeout: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("proxy") @ExcludeMissing proxy: JsonField<Proxy> = JsonMissing.of(),
-        ) : this(url, cleanText, headers, proxy, mutableMapOf())
+            @JsonProperty("stealth_mode")
+            @ExcludeMissing
+            stealthMode: JsonField<Boolean> = JsonMissing.of(),
+        ) : this(
+            url,
+            cacheAge,
+            cleanText,
+            headers,
+            maxRedirects,
+            maxSize,
+            maxTimeout,
+            proxy,
+            stealthMode,
+            mutableMapOf(),
+        )
 
         /**
          * The URL to extract text from.
@@ -356,6 +541,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun url(): String = url.getRequired("url")
+
+        /**
+         * Maximum cache time in milliseconds for the webpage. Must be between 0 (no caching) and
+         * 259200000 (3 days). Defaults to 172800000 (2 days) if not specified.
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cacheAge(): Optional<Long> = cacheAge.getOptional("cache_age")
 
         /**
          * Whether to clean extracted text
@@ -374,6 +568,34 @@ private constructor(
         fun headers(): Optional<Headers> = headers.getOptional("headers")
 
         /**
+         * Maximum number of redirects to follow when fetching the URL. Must be between 0 (no
+         * redirects) and 20. Defaults to 5 if not specified.
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun maxRedirects(): Optional<Long> = maxRedirects.getOptional("max_redirects")
+
+        /**
+         * Maximum content length in bytes for the URL response. Must be between 1024 (1KB) and
+         * 52428800 (50MB). Defaults to 10485760 (10MB) if not specified.
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun maxSize(): Optional<Long> = maxSize.getOptional("max_size")
+
+        /**
+         * Maximum time in milliseconds before the crawler gives up on loading a URL. Must be
+         * between 1000 (1 second) and 30000 (30 seconds). Defaults to 10000 (10 seconds) if not
+         * specified.
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun maxTimeout(): Optional<Long> = maxTimeout.getOptional("max_timeout")
+
+        /**
          * Proxy configuration for the request
          *
          * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -382,11 +604,29 @@ private constructor(
         fun proxy(): Optional<Proxy> = proxy.getOptional("proxy")
 
         /**
+         * When enabled, we use a proxy for the request. If set to true, and the 'proxy' option is
+         * set, it will be ignored. Defaults to false if not specified. Note: Enabling stealth_mode
+         * consumes an additional credit/quota point (2 credits total instead of 1) for this
+         * request.
+         *
+         * @throws CrawlerDevInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun stealthMode(): Optional<Boolean> = stealthMode.getOptional("stealth_mode")
+
+        /**
          * Returns the raw JSON value of [url].
          *
          * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+        /**
+         * Returns the raw JSON value of [cacheAge].
+         *
+         * Unlike [cacheAge], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("cache_age") @ExcludeMissing fun _cacheAge(): JsonField<Long> = cacheAge
 
         /**
          * Returns the raw JSON value of [cleanText].
@@ -403,11 +643,44 @@ private constructor(
         @JsonProperty("headers") @ExcludeMissing fun _headers_(): JsonField<Headers> = headers
 
         /**
+         * Returns the raw JSON value of [maxRedirects].
+         *
+         * Unlike [maxRedirects], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("max_redirects")
+        @ExcludeMissing
+        fun _maxRedirects(): JsonField<Long> = maxRedirects
+
+        /**
+         * Returns the raw JSON value of [maxSize].
+         *
+         * Unlike [maxSize], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("max_size") @ExcludeMissing fun _maxSize(): JsonField<Long> = maxSize
+
+        /**
+         * Returns the raw JSON value of [maxTimeout].
+         *
+         * Unlike [maxTimeout], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("max_timeout") @ExcludeMissing fun _maxTimeout(): JsonField<Long> = maxTimeout
+
+        /**
          * Returns the raw JSON value of [proxy].
          *
          * Unlike [proxy], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("proxy") @ExcludeMissing fun _proxy(): JsonField<Proxy> = proxy
+
+        /**
+         * Returns the raw JSON value of [stealthMode].
+         *
+         * Unlike [stealthMode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("stealth_mode")
+        @ExcludeMissing
+        fun _stealthMode(): JsonField<Boolean> = stealthMode
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -438,17 +711,27 @@ private constructor(
         class Builder internal constructor() {
 
             private var url: JsonField<String>? = null
+            private var cacheAge: JsonField<Long> = JsonMissing.of()
             private var cleanText: JsonField<Boolean> = JsonMissing.of()
             private var headers: JsonField<Headers> = JsonMissing.of()
+            private var maxRedirects: JsonField<Long> = JsonMissing.of()
+            private var maxSize: JsonField<Long> = JsonMissing.of()
+            private var maxTimeout: JsonField<Long> = JsonMissing.of()
             private var proxy: JsonField<Proxy> = JsonMissing.of()
+            private var stealthMode: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 url = body.url
+                cacheAge = body.cacheAge
                 cleanText = body.cleanText
                 headers = body.headers
+                maxRedirects = body.maxRedirects
+                maxSize = body.maxSize
+                maxTimeout = body.maxTimeout
                 proxy = body.proxy
+                stealthMode = body.stealthMode
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -463,6 +746,21 @@ private constructor(
              * value.
              */
             fun url(url: JsonField<String>) = apply { this.url = url }
+
+            /**
+             * Maximum cache time in milliseconds for the webpage. Must be between 0 (no caching)
+             * and 259200000 (3 days). Defaults to 172800000 (2 days) if not specified.
+             */
+            fun cacheAge(cacheAge: Long) = cacheAge(JsonField.of(cacheAge))
+
+            /**
+             * Sets [Builder.cacheAge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cacheAge] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cacheAge(cacheAge: JsonField<Long>) = apply { this.cacheAge = cacheAge }
 
             /** Whether to clean extracted text */
             fun cleanText(cleanText: Boolean) = cleanText(JsonField.of(cleanText))
@@ -488,6 +786,54 @@ private constructor(
              */
             fun headers(headers: JsonField<Headers>) = apply { this.headers = headers }
 
+            /**
+             * Maximum number of redirects to follow when fetching the URL. Must be between 0 (no
+             * redirects) and 20. Defaults to 5 if not specified.
+             */
+            fun maxRedirects(maxRedirects: Long) = maxRedirects(JsonField.of(maxRedirects))
+
+            /**
+             * Sets [Builder.maxRedirects] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maxRedirects] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maxRedirects(maxRedirects: JsonField<Long>) = apply {
+                this.maxRedirects = maxRedirects
+            }
+
+            /**
+             * Maximum content length in bytes for the URL response. Must be between 1024 (1KB) and
+             * 52428800 (50MB). Defaults to 10485760 (10MB) if not specified.
+             */
+            fun maxSize(maxSize: Long) = maxSize(JsonField.of(maxSize))
+
+            /**
+             * Sets [Builder.maxSize] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maxSize] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maxSize(maxSize: JsonField<Long>) = apply { this.maxSize = maxSize }
+
+            /**
+             * Maximum time in milliseconds before the crawler gives up on loading a URL. Must be
+             * between 1000 (1 second) and 30000 (30 seconds). Defaults to 10000 (10 seconds) if not
+             * specified.
+             */
+            fun maxTimeout(maxTimeout: Long) = maxTimeout(JsonField.of(maxTimeout))
+
+            /**
+             * Sets [Builder.maxTimeout] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maxTimeout] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maxTimeout(maxTimeout: JsonField<Long>) = apply { this.maxTimeout = maxTimeout }
+
             /** Proxy configuration for the request */
             fun proxy(proxy: Proxy) = proxy(JsonField.of(proxy))
 
@@ -499,6 +845,25 @@ private constructor(
              * value.
              */
             fun proxy(proxy: JsonField<Proxy>) = apply { this.proxy = proxy }
+
+            /**
+             * When enabled, we use a proxy for the request. If set to true, and the 'proxy' option
+             * is set, it will be ignored. Defaults to false if not specified. Note: Enabling
+             * stealth_mode consumes an additional credit/quota point (2 credits total instead of 1)
+             * for this request.
+             */
+            fun stealthMode(stealthMode: Boolean) = stealthMode(JsonField.of(stealthMode))
+
+            /**
+             * Sets [Builder.stealthMode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.stealthMode] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun stealthMode(stealthMode: JsonField<Boolean>) = apply {
+                this.stealthMode = stealthMode
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -534,9 +899,14 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("url", url),
+                    cacheAge,
                     cleanText,
                     headers,
+                    maxRedirects,
+                    maxSize,
+                    maxTimeout,
                     proxy,
+                    stealthMode,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -549,9 +919,14 @@ private constructor(
             }
 
             url()
+            cacheAge()
             cleanText()
             headers().ifPresent { it.validate() }
+            maxRedirects()
+            maxSize()
+            maxTimeout()
             proxy().ifPresent { it.validate() }
+            stealthMode()
             validated = true
         }
 
@@ -572,9 +947,14 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (url.asKnown().isPresent) 1 else 0) +
+                (if (cacheAge.asKnown().isPresent) 1 else 0) +
                 (if (cleanText.asKnown().isPresent) 1 else 0) +
                 (headers.asKnown().getOrNull()?.validity() ?: 0) +
-                (proxy.asKnown().getOrNull()?.validity() ?: 0)
+                (if (maxRedirects.asKnown().isPresent) 1 else 0) +
+                (if (maxSize.asKnown().isPresent) 1 else 0) +
+                (if (maxTimeout.asKnown().isPresent) 1 else 0) +
+                (proxy.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (stealthMode.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -583,20 +963,36 @@ private constructor(
 
             return other is Body &&
                 url == other.url &&
+                cacheAge == other.cacheAge &&
                 cleanText == other.cleanText &&
                 headers == other.headers &&
+                maxRedirects == other.maxRedirects &&
+                maxSize == other.maxSize &&
+                maxTimeout == other.maxTimeout &&
                 proxy == other.proxy &&
+                stealthMode == other.stealthMode &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(url, cleanText, headers, proxy, additionalProperties)
+            Objects.hash(
+                url,
+                cacheAge,
+                cleanText,
+                headers,
+                maxRedirects,
+                maxSize,
+                maxTimeout,
+                proxy,
+                stealthMode,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{url=$url, cleanText=$cleanText, headers=$headers, proxy=$proxy, additionalProperties=$additionalProperties}"
+            "Body{url=$url, cacheAge=$cacheAge, cleanText=$cleanText, headers=$headers, maxRedirects=$maxRedirects, maxSize=$maxSize, maxTimeout=$maxTimeout, proxy=$proxy, stealthMode=$stealthMode, additionalProperties=$additionalProperties}"
     }
 
     /** Custom HTTP headers to send with the request (case-insensitive) */
