@@ -1,43 +1,31 @@
-# Crawler Dev Java API Library
+# API Crawler Dev SDKs Java API Library
 
-<!-- x-release-please-start-version -->
+[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java)](https://central.sonatype.com/artifact/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
+[![javadoc](https://javadoc.io/badge2/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_crawlerdev.api/crawler-dev-java)](https://central.sonatype.com/artifact/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0)
-[![javadoc](https://javadoc.io/badge2/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0/javadoc.svg)](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0)
-
-<!-- x-release-please-end -->
-
-The Crawler Dev Java SDK provides convenient access to the Crawler Dev REST API from applications written in Java.
+The API Crawler Dev SDKs Java SDK provides convenient access to the API Crawler Dev SDKs REST API from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-<!-- x-release-please-start-version -->
-
-Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_crawlerdev.api/crawler-dev-java/0.1.0).
-
-<!-- x-release-please-end -->
+Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1).
 
 ## Installation
-
-<!-- x-release-please-start-version -->
 
 ### Gradle
 
 ```kotlin
-implementation("com.CONFIGURE_ME_crawlerdev.api:crawler-dev-java:0.1.0")
+implementation("com.CONFIGURE_ME_apicrawlerdev_sdks.api:api-crawler-dev-sdks-java:0.0.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-  <groupId>com.CONFIGURE_ME_crawlerdev.api</groupId>
-  <artifactId>crawler-dev-java</artifactId>
-  <version>0.1.0</version>
+  <groupId>com.CONFIGURE_ME_apicrawlerdev_sdks.api</groupId>
+  <artifactId>api-crawler-dev-sdks-java</artifactId>
+  <version>0.0.1</version>
 </dependency>
 ```
-
-<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -46,20 +34,20 @@ This library requires Java 8 or later.
 ## Usage
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.io.ByteArrayInputStream;
 
-// Configures using the `crawlerdev.apiKey` and `crawlerdev.baseUrl` system properties
-// Or configures using the `CRAWLER_DEV_API_KEY` and `CRAWLER_DEV_BASE_URL` environment variables
-CrawlerDevClient client = CrawlerDevOkHttpClient.fromEnv();
+// Configures using the `apicrawlerdevsdks.apiKey` and `apicrawlerdevsdks.baseUrl` system properties
+// Or configures using the `API_CRAWLER_DEV_SDKS_API_KEY` and `API_CRAWLER_DEV_SDKS_BASE_URL` environment variables
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.fromEnv();
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
-FileExtractTextResponse response = client.files().extractText(params);
+ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
 
 ## Client configuration
@@ -67,21 +55,21 @@ FileExtractTextResponse response = client.files().extractText(params);
 Configure the client using system properties or environment variables:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-// Configures using the `crawlerdev.apiKey` and `crawlerdev.baseUrl` system properties
-// Or configures using the `CRAWLER_DEV_API_KEY` and `CRAWLER_DEV_BASE_URL` environment variables
-CrawlerDevClient client = CrawlerDevOkHttpClient.fromEnv();
+// Configures using the `apicrawlerdevsdks.apiKey` and `apicrawlerdevsdks.baseUrl` system properties
+// Or configures using the `API_CRAWLER_DEV_SDKS_API_KEY` and `API_CRAWLER_DEV_SDKS_BASE_URL` environment variables
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.fromEnv();
 ```
 
 Or manually:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .apiKey("My API Key")
     .build();
 ```
@@ -89,12 +77,12 @@ CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
 Or using a combination of the two approaches:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
-    // Configures using the `crawlerdev.apiKey` and `crawlerdev.baseUrl` system properties
-    // Or configures using the `CRAWLER_DEV_API_KEY` and `CRAWLER_DEV_BASE_URL` environment variables
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
+    // Configures using the `apicrawlerdevsdks.apiKey` and `apicrawlerdevsdks.baseUrl` system properties
+    // Or configures using the `API_CRAWLER_DEV_SDKS_API_KEY` and `API_CRAWLER_DEV_SDKS_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
@@ -102,10 +90,10 @@ CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter    | System property      | Environment variable   | Required | Default value               |
-| --------- | -------------------- | ---------------------- | -------- | --------------------------- |
-| `apiKey`  | `crawlerdev.apiKey`  | `CRAWLER_DEV_API_KEY`  | true     | -                           |
-| `baseUrl` | `crawlerdev.baseUrl` | `CRAWLER_DEV_BASE_URL` | true     | `"https://api.crawler.dev"` |
+| Setter    | System property             | Environment variable            | Required | Default value               |
+| --------- | --------------------------- | ------------------------------- | -------- | --------------------------- |
+| `apiKey`  | `apicrawlerdevsdks.apiKey`  | `API_CRAWLER_DEV_SDKS_API_KEY`  | true     | -                           |
+| `baseUrl` | `apicrawlerdevsdks.baseUrl` | `API_CRAWLER_DEV_SDKS_BASE_URL` | true     | `"https://api.crawler.dev"` |
 
 System properties take precedence over environment variables.
 
@@ -118,9 +106,9 @@ System properties take precedence over environment variables.
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
 
-CrawlerDevClient clientWithOptions = client.withOptions(optionsBuilder -> {
+ApiCrawlerDevSdksClient clientWithOptions = client.withOptions(optionsBuilder -> {
     optionsBuilder.baseUrl("https://example.com");
     optionsBuilder.maxRetries(42);
 });
@@ -130,9 +118,9 @@ The `withOptions()` method does not affect the original client or service.
 
 ## Requests and responses
 
-To send a request to the Crawler Dev API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
+To send a request to the API Crawler Dev SDKs API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
 
-For example, `client.files().extractText(...)` should be called with an instance of `FileExtractTextParams`, and it will return an instance of `FileExtractTextResponse`.
+For example, `client.extract().fromFile(...)` should be called with an instance of `ExtractFromFileParams`, and it will return an instance of `ExtractFromFileResponse`.
 
 ## Immutability
 
@@ -147,41 +135,41 @@ Because each class is immutable, builder modification will _never_ affect alread
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.io.ByteArrayInputStream;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `crawlerdev.apiKey` and `crawlerdev.baseUrl` system properties
-// Or configures using the `CRAWLER_DEV_API_KEY` and `CRAWLER_DEV_BASE_URL` environment variables
-CrawlerDevClient client = CrawlerDevOkHttpClient.fromEnv();
+// Configures using the `apicrawlerdevsdks.apiKey` and `apicrawlerdevsdks.baseUrl` system properties
+// Or configures using the `API_CRAWLER_DEV_SDKS_API_KEY` and `API_CRAWLER_DEV_SDKS_BASE_URL` environment variables
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.fromEnv();
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
-CompletableFuture<FileExtractTextResponse> response = client.async().files().extractText(params);
+CompletableFuture<ExtractFromFileResponse> response = client.async().extract().fromFile(params);
 ```
 
 Or create an asynchronous client from the beginning:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClientAsync;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClientAsync;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClientAsync;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClientAsync;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.io.ByteArrayInputStream;
 import java.util.concurrent.CompletableFuture;
 
-// Configures using the `crawlerdev.apiKey` and `crawlerdev.baseUrl` system properties
-// Or configures using the `CRAWLER_DEV_API_KEY` and `CRAWLER_DEV_BASE_URL` environment variables
-CrawlerDevClientAsync client = CrawlerDevOkHttpClientAsync.fromEnv();
+// Configures using the `apicrawlerdevsdks.apiKey` and `apicrawlerdevsdks.baseUrl` system properties
+// Or configures using the `API_CRAWLER_DEV_SDKS_API_KEY` and `API_CRAWLER_DEV_SDKS_BASE_URL` environment variables
+ApiCrawlerDevSdksClientAsync client = ApiCrawlerDevSdksOkHttpClientAsync.fromEnv();
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
-CompletableFuture<FileExtractTextResponse> response = client.files().extractText(params);
+CompletableFuture<ExtractFromFileResponse> response = client.extract().fromFile(params);
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
@@ -193,57 +181,57 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.nio.file.Paths;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(Paths.get("/path/to/file"))
     .build();
-FileExtractTextResponse response = client.files().extractText(params);
+ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
 
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.net.URL;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(new URL("https://example.com//path/to/file").openStream())
     .build();
-FileExtractTextResponse response = client.files().extractText(params);
+ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
 
 Or a `byte[]` array:
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file("content".getBytes())
     .build();
-FileExtractTextResponse response = client.files().extractText(params);
+ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/Values.kt):
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/core/Values.kt):
 
 ```java
-import com.configure_me_crawlerdev.api.core.MultipartField;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.core.MultipartField;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.io.InputStream;
 import java.net.URL;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(MultipartField.<InputStream>builder()
         .value(new URL("https://example.com//path/to/file").openStream())
         .filename("/path/to/file")
         .build())
     .build();
-FileExtractTextResponse response = client.files().extractText(params);
+ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
 
 ## Raw responses
@@ -253,16 +241,16 @@ The SDK defines methods that deserialize responses into instances of Java classe
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```java
-import com.configure_me_crawlerdev.api.core.http.Headers;
-import com.configure_me_crawlerdev.api.core.http.HttpResponseFor;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.core.http.Headers;
+import com.configure_me_apicrawlerdev_sdks.api.core.http.HttpResponseFor;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 import java.io.ByteArrayInputStream;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
-HttpResponseFor<FileExtractTextResponse> response = client.files().withRawResponse().extractText(params);
+HttpResponseFor<ExtractFromFileResponse> response = client.extract().withRawResponse().fromFile(params);
 
 int statusCode = response.statusCode();
 Headers headers = response.headers();
@@ -271,55 +259,55 @@ Headers headers = response.headers();
 You can still deserialize the response into an instance of a Java class if needed:
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 
-FileExtractTextResponse parsedResponse = response.parse();
+ExtractFromFileResponse parsedResponse = response.parse();
 ```
 
 ## Error handling
 
 The SDK throws custom unchecked exception types:
 
-- [`CrawlerDevServiceException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`ApiCrawlerDevSdksServiceException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                                        |
-  | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-  | 400    | [`BadRequestException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                                                                         |
+  | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/UnexpectedStatusCodeException.kt) |
 
-- [`CrawlerDevIoException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevIoException.kt): I/O networking errors.
+- [`ApiCrawlerDevSdksIoException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksIoException.kt): I/O networking errors.
 
-- [`CrawlerDevRetryableException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+- [`ApiCrawlerDevSdksRetryableException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksRetryableException.kt): Generic error indicating a failure that could be retried by the client.
 
-- [`CrawlerDevInvalidDataException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`ApiCrawlerDevSdksInvalidDataException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`CrawlerDevException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`ApiCrawlerDevSdksException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Logging
 
 The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
 
-Enable logging by setting the `CRAWLER_DEV_LOG` environment variable to `info`:
+Enable logging by setting the `API_CRAWLER_DEV_SDKS_LOG` environment variable to `info`:
 
 ```sh
-$ export CRAWLER_DEV_LOG=info
+export API_CRAWLER_DEV_SDKS_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export CRAWLER_DEV_LOG=debug
+export API_CRAWLER_DEV_SDKS_LOG=debug
 ```
 
 ## ProGuard and R8
 
-Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `crawler-dev-java-core` is published with a [configuration file](crawler-dev-java-core/src/main/resources/META-INF/proguard/crawler-dev-java-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
+Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `api-crawler-dev-sdks-java-core` is published with a [configuration file](api-crawler-dev-sdks-java-core/src/main/resources/META-INF/proguard/api-crawler-dev-sdks-java-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
 
 ProGuard and R8 should automatically detect and use the published rules, but you can also manually copy the keep rules if necessary.
 
@@ -329,7 +317,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`CrawlerDevOkHttpClient`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClient.kt) or [`CrawlerDevOkHttpClientAsync`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`ApiCrawlerDevSdksOkHttpClient`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClient.kt) or [`ApiCrawlerDevSdksOkHttpClientAsync`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -353,10 +341,10 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
     .build();
@@ -369,9 +357,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 
-FileExtractTextResponse response = client.files().extractText(
+ExtractFromFileResponse response = client.extract().fromFile(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 );
 ```
@@ -379,11 +367,11 @@ FileExtractTextResponse response = client.files().extractText(
 Or configure the default for all method calls at the client level:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 import java.time.Duration;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
     .build();
@@ -394,12 +382,12 @@ CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
 To route requests through a proxy, configure the client using the `proxy` method:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .fromEnv()
     .proxy(new Proxy(
       Proxy.Type.HTTP, new InetSocketAddress(
@@ -418,10 +406,10 @@ CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
 To configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`, `trustManager`, and `hostnameVerifier` methods:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .fromEnv()
     // If `sslSocketFactory` is set, then `trustManager` must be set, and vice versa.
     .sslSocketFactory(yourSSLSocketFactory)
@@ -434,15 +422,15 @@ CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
 
 The SDK consists of three artifacts:
 
-- `crawler-dev-java-core`
+- `api-crawler-dev-sdks-java-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`CrawlerDevClient`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClient.kt), [`CrawlerDevClientAsync`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientAsync.kt), [`CrawlerDevClientImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientImpl.kt), and [`CrawlerDevClientAsyncImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientAsyncImpl.kt), all of which can work with any HTTP client
-- `crawler-dev-java-client-okhttp`
+  - Exposes [`ApiCrawlerDevSdksClient`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClient.kt), [`ApiCrawlerDevSdksClientAsync`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientAsync.kt), [`ApiCrawlerDevSdksClientImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientImpl.kt), and [`ApiCrawlerDevSdksClientAsyncImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientAsyncImpl.kt), all of which can work with any HTTP client
+- `api-crawler-dev-sdks-java-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`CrawlerDevOkHttpClient`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClient.kt) and [`CrawlerDevOkHttpClientAsync`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClientAsync.kt), which provide a way to construct [`CrawlerDevClientImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientImpl.kt) and [`CrawlerDevClientAsyncImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientAsyncImpl.kt), respectively, using OkHttp
-- `crawler-dev-java`
-  - Depends on and exposes the APIs of both `crawler-dev-java-core` and `crawler-dev-java-client-okhttp`
+  - Exposes [`ApiCrawlerDevSdksOkHttpClient`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClient.kt) and [`ApiCrawlerDevSdksOkHttpClientAsync`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClientAsync.kt), which provide a way to construct [`ApiCrawlerDevSdksClientImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientImpl.kt) and [`ApiCrawlerDevSdksClientAsyncImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientAsyncImpl.kt), respectively, using OkHttp
+- `api-crawler-dev-sdks-java`
+  - Depends on and exposes the APIs of both `api-crawler-dev-sdks-java-core` and `api-crawler-dev-sdks-java-client-okhttp`
   - Does not have its own logic
 
 This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
@@ -454,17 +442,17 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 
 To use a customized `OkHttpClient`:
 
-1. Replace your [`crawler-dev-java` dependency](#installation) with `crawler-dev-java-core`
-2. Copy `crawler-dev-java-client-okhttp`'s [`OkHttpClient`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`CrawlerDevClientImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientImpl.kt) or [`CrawlerDevClientAsyncImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientAsyncImpl.kt), similarly to [`CrawlerDevOkHttpClient`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClient.kt) or [`CrawlerDevOkHttpClientAsync`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClientAsync.kt), using your customized client
+1. Replace your [`api-crawler-dev-sdks-java` dependency](#installation) with `api-crawler-dev-sdks-java-core`
+2. Copy `api-crawler-dev-sdks-java-client-okhttp`'s [`OkHttpClient`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`ApiCrawlerDevSdksClientImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientImpl.kt) or [`ApiCrawlerDevSdksClientAsyncImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientAsyncImpl.kt), similarly to [`ApiCrawlerDevSdksOkHttpClient`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClient.kt) or [`ApiCrawlerDevSdksOkHttpClientAsync`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
-1. Replace your [`crawler-dev-java` dependency](#installation) with `crawler-dev-java-core`
-2. Write a class that implements the [`HttpClient`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/http/HttpClient.kt) interface
-3. Construct [`CrawlerDevClientImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientImpl.kt) or [`CrawlerDevClientAsyncImpl`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/client/CrawlerDevClientAsyncImpl.kt), similarly to [`CrawlerDevOkHttpClient`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClient.kt) or [`CrawlerDevOkHttpClientAsync`](crawler-dev-java-client-okhttp/src/main/kotlin/com/configure_me_crawlerdev/api/client/okhttp/CrawlerDevOkHttpClientAsync.kt), using your new client class
+1. Replace your [`api-crawler-dev-sdks-java` dependency](#installation) with `api-crawler-dev-sdks-java-core`
+2. Write a class that implements the [`HttpClient`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/core/http/HttpClient.kt) interface
+3. Construct [`ApiCrawlerDevSdksClientImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientImpl.kt) or [`ApiCrawlerDevSdksClientAsyncImpl`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/ApiCrawlerDevSdksClientAsyncImpl.kt), similarly to [`ApiCrawlerDevSdksOkHttpClient`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClient.kt) or [`ApiCrawlerDevSdksOkHttpClientAsync`](api-crawler-dev-sdks-java-client-okhttp/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/client/okhttp/ApiCrawlerDevSdksOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -475,10 +463,10 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonValue;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
     .putAdditionalQueryParam("secret_query_param", "42")
     .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
@@ -490,11 +478,11 @@ These can be accessed on the built object later using the `_additionalHeaders()`
 To set undocumented parameters on _nested_ headers, query params, or body classes, call the `putAdditionalProperty` method on the nested class:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonValue;
-import com.configure_me_crawlerdev.api.models.urls.UrlExtractTextParams;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromUrlParams;
 
-UrlExtractTextParams params = UrlExtractTextParams.builder()
-    .proxy(UrlExtractTextParams.Proxy.builder()
+ExtractFromUrlParams params = ExtractFromUrlParams.builder()
+    .proxy(ExtractFromUrlParams.Proxy.builder()
         .putAdditionalProperty("secretProperty", JsonValue.from("42"))
         .build())
     .build();
@@ -502,21 +490,21 @@ UrlExtractTextParams params = UrlExtractTextParams.builder()
 
 These properties can be accessed on the nested built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/core/Values.kt) object to its setter:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonValue;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(JsonValue.from(42))
     .build();
 ```
 
-The most straightforward way to create a [`JsonValue`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/core/Values.kt) is using its `from(...)` method:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonValue;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue;
 import java.util.List;
 import java.util.Map;
 
@@ -554,13 +542,13 @@ JsonValue complexValue = JsonValue.from(Map.of(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/core/Values.kt):
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonMissing;
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextParams;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonMissing;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams;
 
-FileExtractTextParams params = FileExtractTextParams.builder()
+ExtractFromFileParams params = ExtractFromFileParams.builder()
     .file(JsonMissing.of())
     .build();
 ```
@@ -570,10 +558,10 @@ FileExtractTextParams params = FileExtractTextParams.builder()
 To access undocumented response properties, call the `_additionalProperties()` method:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonValue;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue;
 import java.util.Map;
 
-Map<String, JsonValue> additionalProperties = client.files().extractText(params)._additionalProperties();
+Map<String, JsonValue> additionalProperties = client.extract().fromFile(params)._additionalProperties();
 JsonValue secretPropertyValue = additionalProperties.get("secretProperty");
 
 String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
@@ -600,11 +588,11 @@ String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
 To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
 
 ```java
-import com.configure_me_crawlerdev.api.core.JsonField;
+import com.configure_me_apicrawlerdev_sdks.api.core.JsonField;
 import java.io.InputStream;
 import java.util.Optional;
 
-JsonField<InputStream> file = client.files().extractText(params)._file();
+JsonField<InputStream> file = client.extract().fromFile(params)._file();
 
 if (file.isMissing()) {
   // The property is absent from the JSON response
@@ -624,22 +612,22 @@ if (file.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`CrawlerDevInvalidDataException`](crawler-dev-java-core/src/main/kotlin/com/configure_me_crawlerdev/api/errors/CrawlerDevInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`ApiCrawlerDevSdksInvalidDataException`](api-crawler-dev-sdks-java-core/src/main/kotlin/com/configure_me_apicrawlerdev_sdks/api/errors/ApiCrawlerDevSdksInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 
-FileExtractTextResponse response = client.files().extractText(params).validate();
+ExtractFromFileResponse response = client.extract().fromFile(params).validate();
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.configure_me_crawlerdev.api.models.files.FileExtractTextResponse;
+import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileResponse;
 
-FileExtractTextResponse response = client.files().extractText(
+ExtractFromFileResponse response = client.extract().fromFile(
   params, RequestOptions.builder().responseValidation(true).build()
 );
 ```
@@ -647,10 +635,10 @@ FileExtractTextResponse response = client.files().extractText(
 Or configure the default for all method calls at the client level:
 
 ```java
-import com.configure_me_crawlerdev.api.client.CrawlerDevClient;
-import com.configure_me_crawlerdev.api.client.okhttp.CrawlerDevOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
 
-CrawlerDevClient client = CrawlerDevOkHttpClient.builder()
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
     .fromEnv()
     .responseValidation(true)
     .build();
@@ -694,4 +682,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/crawler-dot-dev/api-sdk-java/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/api.crawler.dev-sdks-java/issues) with questions, bugs, or suggestions.
