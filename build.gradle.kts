@@ -8,8 +8,8 @@ repositories {
 }
 
 allprojects {
-    group = "com.CONFIGURE_ME_crawlerdev.api"
-    version = "0.1.0" // x-release-please-version
+    group = "com.CONFIGURE_ME_apicrawlerdev_sdks.api"
+    version = "0.0.1"
 }
 
 subprojects {
@@ -32,7 +32,7 @@ subprojects {
 // Avoid race conditions between `dokkaJavadocCollector` and `dokkaJavadocJar` tasks
 tasks.named("dokkaJavadocCollector").configure {
     subprojects.flatMap { it.tasks }
-        .filter { it.project.name != "crawler-dev-java" && it.name == "dokkaJavadocJar" }
+        .filter { it.project.name != "api-crawler-dev-sdks-java" && it.name == "dokkaJavadocJar" }
         .forEach { mustRunAfter(it) }
 }
 

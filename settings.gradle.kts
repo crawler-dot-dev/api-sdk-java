@@ -1,11 +1,11 @@
-rootProject.name = "crawler-dev-java-root"
+rootProject.name = "api-crawler-dev-sdks-java-root"
 
 val projectNames = rootDir.listFiles()
     ?.asSequence()
     .orEmpty()
     .filter { file ->
         file.isDirectory &&
-        file.name.startsWith("crawler-dev-java") &&
+        file.name.startsWith("api-crawler-dev-sdks-java") &&
         file.listFiles()?.asSequence().orEmpty().any { it.name == "build.gradle.kts" }
     }
     .map { it.name }
