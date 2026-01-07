@@ -11,7 +11,7 @@ configure<PublishingExtension> {
             pom {
                 name.set("api.crawler.dev")
                 description.set("OpenAPI specification for the public API endpoints")
-                url.set("https://www.github.com/stainless-sdks/api.crawler.dev-sdks-java")
+                url.set("https://www.github.com/crawler-dot-dev/api-sdk-java")
 
                 licenses {
                     license {
@@ -26,9 +26,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/api.crawler.dev-sdks-java.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/api.crawler.dev-sdks-java.git")
-                    url.set("https://github.com/stainless-sdks/api.crawler.dev-sdks-java")
+                    connection.set("scm:git:git://github.com/crawler-dot-dev/api-sdk-java.git")
+                    developerConnection.set("scm:git:git://github.com/crawler-dot-dev/api-sdk-java.git")
+                    url.set("https://github.com/crawler-dot-dev/api-sdk-java")
                 }
 
                 versionMapping {
