@@ -1378,11 +1378,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
-                                CacheAge(integer = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 CacheAge(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
+                                CacheAge(integer = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -1781,11 +1781,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
-                                MaxSize(integer = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 MaxSize(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
+                                MaxSize(integer = it, _json = json)
                             },
                         )
                         .filterNotNull()
@@ -1957,11 +1957,11 @@ private constructor(
 
                 val bestMatches =
                     sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
-                                MaxTimeout(integer = it, _json = json)
-                            },
                             tryDeserialize(node, jacksonTypeRef<String>())?.let {
                                 MaxTimeout(string = it, _json = json)
+                            },
+                            tryDeserialize(node, jacksonTypeRef<Long>())?.let {
+                                MaxTimeout(integer = it, _json = json)
                             },
                         )
                         .filterNotNull()
