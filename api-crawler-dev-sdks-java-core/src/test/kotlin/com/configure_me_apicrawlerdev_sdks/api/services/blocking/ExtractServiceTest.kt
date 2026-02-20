@@ -2,26 +2,19 @@
 
 package com.configure_me_apicrawlerdev_sdks.api.services.blocking
 
-import com.configure_me_apicrawlerdev_sdks.api.TestServerExtension
 import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient
 import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue
 import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileParams
 import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromUrlParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ExtractServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun fromFile() {
-        val client =
-            ApiCrawlerDevSdksOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = ApiCrawlerDevSdksOkHttpClient.builder().apiKey("My API Key").build()
         val extractService = client.extract()
 
         val response =
@@ -41,11 +34,7 @@ internal class ExtractServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun fromUrl() {
-        val client =
-            ApiCrawlerDevSdksOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = ApiCrawlerDevSdksOkHttpClient.builder().apiKey("My API Key").build()
         val extractService = client.extract()
 
         val response =
