@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class ExtractServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun fromFile() {
         val client = ApiCrawlerDevSdksOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -32,7 +32,7 @@ internal class ExtractServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun fromUrl() {
         val client = ApiCrawlerDevSdksOkHttpClientAsync.builder().apiKey("My API Key").build()
