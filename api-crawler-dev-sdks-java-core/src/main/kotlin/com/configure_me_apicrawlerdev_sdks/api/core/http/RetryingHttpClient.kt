@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.configure_me_apicrawlerdev_sdks.api.core.http
 
 import com.configure_me_apicrawlerdev_sdks.api.core.DefaultSleeper
