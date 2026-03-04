@@ -23,6 +23,7 @@ import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromUrlResp
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
+/** Endpoints for extracting text from files and URLs */
 class ExtractServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ExtractServiceAsync {
 

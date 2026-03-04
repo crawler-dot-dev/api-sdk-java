@@ -37,6 +37,7 @@ class ApiCrawlerDevSdksClientImpl(private val clientOptions: ClientOptions) :
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ApiCrawlerDevSdksClient =
         ApiCrawlerDevSdksClientImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints for extracting text from files and URLs */
     override fun extract(): ExtractService = extract
 
     override fun close() = clientOptions.close()
@@ -55,6 +56,7 @@ class ApiCrawlerDevSdksClientImpl(private val clientOptions: ClientOptions) :
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints for extracting text from files and URLs */
         override fun extract(): ExtractService.WithRawResponse = extract
     }
 }
