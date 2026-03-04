@@ -12,6 +12,7 @@ import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromUrlResp
 import com.google.errorprone.annotations.MustBeClosed
 import java.util.function.Consumer
 
+/** Endpoints for extracting text from files and URLs */
 interface ExtractService {
 
     /**

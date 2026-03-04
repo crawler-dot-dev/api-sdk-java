@@ -39,6 +39,7 @@ class ApiCrawlerDevSdksClientAsyncImpl(private val clientOptions: ClientOptions)
     ): ApiCrawlerDevSdksClientAsync =
         ApiCrawlerDevSdksClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    /** Endpoints for extracting text from files and URLs */
     override fun extract(): ExtractServiceAsync = extract
 
     override fun close() = clientOptions.close()
@@ -57,6 +58,7 @@ class ApiCrawlerDevSdksClientAsyncImpl(private val clientOptions: ClientOptions)
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
+        /** Endpoints for extracting text from files and URLs */
         override fun extract(): ExtractServiceAsync.WithRawResponse = extract
     }
 }

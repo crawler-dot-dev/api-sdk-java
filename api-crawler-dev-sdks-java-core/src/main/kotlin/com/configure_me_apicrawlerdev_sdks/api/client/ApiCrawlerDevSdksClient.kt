@@ -42,6 +42,7 @@ interface ApiCrawlerDevSdksClient {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ApiCrawlerDevSdksClient
 
+    /** Endpoints for extracting text from files and URLs */
     fun extract(): ExtractService
 
     /**
@@ -72,6 +73,7 @@ interface ApiCrawlerDevSdksClient {
             modifier: Consumer<ClientOptions.Builder>
         ): ApiCrawlerDevSdksClient.WithRawResponse
 
+        /** Endpoints for extracting text from files and URLs */
         fun extract(): ExtractService.WithRawResponse
     }
 }
