@@ -72,7 +72,7 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -100,7 +100,7 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -128,7 +128,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -156,7 +156,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -184,7 +184,7 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -212,7 +212,7 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -240,7 +240,7 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -268,7 +268,7 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -296,7 +296,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -324,7 +324,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -352,7 +352,7 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -380,7 +380,7 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -408,7 +408,7 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -436,7 +436,7 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -464,7 +464,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -492,7 +492,7 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -518,7 +518,7 @@ internal class ErrorHandlingTest {
             assertThrows<ApiCrawlerDevSdksException> {
                 extractService.fromFile(
                     ExtractFromFileParams.builder()
-                        .file("some content".byteInputStream())
+                        .file("Example data".byteInputStream())
                         .cleanText(true)
                         .addFormat(ExtractFromFileParams.Format.TEXT)
                         .addFormat(ExtractFromFileParams.Format.MARKDOWN)
