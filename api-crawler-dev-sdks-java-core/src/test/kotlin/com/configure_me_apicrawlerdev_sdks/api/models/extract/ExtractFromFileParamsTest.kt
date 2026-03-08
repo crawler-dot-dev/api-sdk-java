@@ -12,7 +12,7 @@ internal class ExtractFromFileParamsTest {
     @Test
     fun create() {
         ExtractFromFileParams.builder()
-            .file("some content".byteInputStream())
+            .file("Example data".byteInputStream())
             .cleanText(true)
             .addFormat(ExtractFromFileParams.Format.TEXT)
             .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -24,7 +24,7 @@ internal class ExtractFromFileParamsTest {
     fun body() {
         val params =
             ExtractFromFileParams.builder()
-                .file("some content".byteInputStream())
+                .file("Example data".byteInputStream())
                 .cleanText(true)
                 .addFormat(ExtractFromFileParams.Format.TEXT)
                 .addFormat(ExtractFromFileParams.Format.MARKDOWN)
@@ -43,7 +43,7 @@ internal class ExtractFromFileParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "file" to MultipartField.of("some content".byteInputStream()),
+                        "file" to MultipartField.of("Example data".byteInputStream()),
                         "cleanText" to MultipartField.of(true),
                         "formats" to
                             MultipartField.of(
@@ -63,7 +63,7 @@ internal class ExtractFromFileParamsTest {
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = ExtractFromFileParams.builder().file("some content".byteInputStream()).build()
+        val params = ExtractFromFileParams.builder().file("Example data".byteInputStream()).build()
 
         val body = params._body()
 
@@ -76,7 +76,7 @@ internal class ExtractFromFileParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("file" to MultipartField.of("some content".byteInputStream())).mapValues {
+                mapOf("file" to MultipartField.of("Example data".byteInputStream())).mapValues {
                     (_, field) ->
                     field.map { (it as? ByteArray)?.inputStream() ?: it }
                 }
