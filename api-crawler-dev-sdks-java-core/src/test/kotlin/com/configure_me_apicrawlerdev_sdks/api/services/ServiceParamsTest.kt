@@ -44,7 +44,7 @@ internal class ServiceParamsTest {
 
         extractService.fromFile(
             ExtractFromFileParams.builder()
-                .file("some content".byteInputStream())
+                .file("Example data".byteInputStream())
                 .cleanText(true)
                 .addFormat(ExtractFromFileParams.Format.TEXT)
                 .addFormat(ExtractFromFileParams.Format.MARKDOWN)
