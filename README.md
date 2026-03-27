@@ -57,7 +57,7 @@ import java.io.ByteArrayInputStream;
 ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.fromEnv();
 
 ExtractFromFileParams params = ExtractFromFileParams.builder()
-    .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
+    .file(new ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
 ExtractFromFileResponse response = client.extract().fromFile(params);
 ```
@@ -159,7 +159,7 @@ import java.util.concurrent.CompletableFuture;
 ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.fromEnv();
 
 ExtractFromFileParams params = ExtractFromFileParams.builder()
-    .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
+    .file(new ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
 CompletableFuture<ExtractFromFileResponse> response = client.async().extract().fromFile(params);
 ```
@@ -179,7 +179,7 @@ import java.util.concurrent.CompletableFuture;
 ApiCrawlerDevSdksClientAsync client = ApiCrawlerDevSdksOkHttpClientAsync.fromEnv();
 
 ExtractFromFileParams params = ExtractFromFileParams.builder()
-    .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
+    .file(new ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
 CompletableFuture<ExtractFromFileResponse> response = client.extract().fromFile(params);
 ```
@@ -260,7 +260,7 @@ import com.configure_me_apicrawlerdev_sdks.api.models.extract.ExtractFromFileRes
 import java.io.ByteArrayInputStream;
 
 ExtractFromFileParams params = ExtractFromFileParams.builder()
-    .file(ByteArrayInputStream("REPLACE_ME".getBytes()))
+    .file(new ByteArrayInputStream("REPLACE_ME".getBytes()))
     .build();
 HttpResponseFor<ExtractFromFileResponse> response = client.extract().withRawResponse().fromFile(params);
 
