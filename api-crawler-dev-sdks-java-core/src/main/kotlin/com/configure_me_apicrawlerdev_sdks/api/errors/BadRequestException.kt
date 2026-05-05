@@ -5,12 +5,16 @@ package com.configure_me_apicrawlerdev_sdks.api.errors
 import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue
 import com.configure_me_apicrawlerdev_sdks.api.core.checkRequired
 import com.configure_me_apicrawlerdev_sdks.api.core.http.Headers
+import com.configure_me_apicrawlerdev_sdks.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class BadRequestException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    ApiCrawlerDevSdksServiceException("400: $body", cause) {
+    ApiCrawlerDevSdksServiceException(
+        "400: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 400
 

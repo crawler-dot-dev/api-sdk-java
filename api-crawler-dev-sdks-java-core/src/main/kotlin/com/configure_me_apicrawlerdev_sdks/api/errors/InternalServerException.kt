@@ -5,6 +5,7 @@ package com.configure_me_apicrawlerdev_sdks.api.errors
 import com.configure_me_apicrawlerdev_sdks.api.core.JsonValue
 import com.configure_me_apicrawlerdev_sdks.api.core.checkRequired
 import com.configure_me_apicrawlerdev_sdks.api.core.http.Headers
+import com.configure_me_apicrawlerdev_sdks.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -14,7 +15,11 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : ApiCrawlerDevSdksServiceException("$statusCode: $body", cause) {
+) :
+    ApiCrawlerDevSdksServiceException(
+        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = statusCode
 
