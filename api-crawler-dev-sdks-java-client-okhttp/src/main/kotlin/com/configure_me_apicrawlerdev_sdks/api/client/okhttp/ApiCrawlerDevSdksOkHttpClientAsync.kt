@@ -5,6 +5,7 @@ package com.configure_me_apicrawlerdev_sdks.api.client.okhttp
 import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClientAsync
 import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClientAsyncImpl
 import com.configure_me_apicrawlerdev_sdks.api.core.ClientOptions
+import com.configure_me_apicrawlerdev_sdks.api.core.LogLevel
 import com.configure_me_apicrawlerdev_sdks.api.core.Sleeper
 import com.configure_me_apicrawlerdev_sdks.api.core.Timeout
 import com.configure_me_apicrawlerdev_sdks.api.core.http.Headers
@@ -278,6 +279,15 @@ class ApiCrawlerDevSdksOkHttpClientAsync private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         /** API key required for authentication. Get your API key from the crawler.dev dashboard. */
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
