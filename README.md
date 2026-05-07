@@ -303,8 +303,6 @@ The SDK throws custom unchecked exception types:
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `API_CRAWLER_DEV_SDKS_LOG` environment variable to `info`:
 
 ```sh
@@ -315,6 +313,19 @@ Or to `debug` for more verbose logging:
 
 ```sh
 export API_CRAWLER_DEV_SDKS_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```java
+import com.configure_me_apicrawlerdev_sdks.api.client.ApiCrawlerDevSdksClient;
+import com.configure_me_apicrawlerdev_sdks.api.client.okhttp.ApiCrawlerDevSdksOkHttpClient;
+import com.configure_me_apicrawlerdev_sdks.api.core.LogLevel;
+
+ApiCrawlerDevSdksClient client = ApiCrawlerDevSdksOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .build();
 ```
 
 ## ProGuard and R8
