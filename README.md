@@ -3,7 +3,7 @@
 <!-- x-release-please-start-version -->
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java)](https://central.sonatype.com/artifact/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
+[![javadoc](https://javadoc.io/badge2/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/javadoc.svg)](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
 
 <!-- x-release-please-end -->
 
