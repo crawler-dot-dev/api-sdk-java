@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java)](https://central.sonatype.com/artifact/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/javadoc.svg)](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java)](https://central.sonatype.com/artifact/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.1.0)
+[![javadoc](https://javadoc.io/badge2/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/javadoc.svg)](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.1.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.0.1).
+Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_apicrawlerdev_sdks.api/api-crawler-dev-sdks-java/0.1.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.configure_me_a
 ### Gradle
 
 ```kotlin
-implementation("com.CONFIGURE_ME_apicrawlerdev_sdks.api:api-crawler-dev-sdks-java:0.0.1")
+implementation("com.CONFIGURE_ME_apicrawlerdev_sdks.api:api-crawler-dev-sdks-java:0.1.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.CONFIGURE_ME_apicrawlerdev_sdks.api:api-crawler-dev-sdks-jav
 <dependency>
   <groupId>com.CONFIGURE_ME_apicrawlerdev_sdks.api</groupId>
   <artifactId>api-crawler-dev-sdks-java</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
 </dependency>
 ```
 

@@ -9,7 +9,7 @@ repositories {
 
 allprojects {
     group = "com.CONFIGURE_ME_apicrawlerdev_sdks.api"
-    version = "0.0.1" // x-release-please-version
+    version = "0.1.0" // x-release-please-version
 }
 
 subprojects {
